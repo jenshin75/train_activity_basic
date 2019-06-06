@@ -1,56 +1,72 @@
-  // Your web app's Firebase configuration
-  var firebaseConfig = {
-    apiKey: "AIzaSyByCpqAHYieLqpUG7xMU8gfI2R2SYv8e-U",
-    authDomain: "users-f4eaf.firebaseapp.com",
-    databaseURL: "https://users-f4eaf.firebaseio.com",
-    projectId: "users-f4eaf",
-    storageBucket: "users-f4eaf.appspot.com",
-    messagingSenderId: "619428155275",
-    appId: "1:619428155275:web:3d4ed991e2a8ef73"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
+// Your web app's Firebase configuration
+var firebaseConfig = {
+  apiKey: "AIzaSyD72jGeZTd4oD6uNkgXYWv-6uzaForMAt8",
+  authDomain: "trainscheduler-c63bd.firebaseapp.com",
+  databaseURL: "https://trainscheduler-c63bd.firebaseio.com",
+  projectId: "trainscheduler-c63bd",
+  storageBucket: "",
+  messagingSenderId: "982892983848",
+  appId: "1:982892983848:web:abfdc029caa6b04d"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
 
-  var database = firebase.database();
+var database = firebase.database();
 
-database.ref().on("child-added", function(snapshot){
-var name = snapshot.val().name;
-var role = snapshot.val().role;
-var startDate = snapshot.val().startDate;
-var monthlyRate = snapshot.val().monthlyRate;
-var months = 10;
-var totalBill = months *  monthlyRate;
+$(".submit").on("click", function(){
+   
+  var trainInput = $("#train").val().trim();
+  var destinationInput = $("#destination").val().trim();
+  var firstTrainInput = $("#firstTrain").val().trim();
+  var frequencyInput = $("#frequency").val().trim();
 
-var tr = $("<tr>")
-// var td1 = $("<td>")
+  database.ref().push({
+    train: trainInput,
+    destination: destinationInput,
+    firstTrain: firstTrainInput,
+    frequency: frequencyInput
+  })
 
+})
+
+//display data from initial load
+database.ref().on("child_added",function(snapshot){
+
+ var train=snapshot.val().train;
+ var destination=snapshot.val().destination;
+ var firstTrain=snapshot.val().firstTrain;
+ var frequency=snapshot.val().frequency;
+
+//  var months=10;
+
+//  var totalBill= months * monthlyRate;
+
+var tr=$("<tr>");
+   
 var td1=$("<td>")
-td1.text(name)
+td1.text(train)
 tr.append(td1)
 
 var td2=$("<td>")
-td2.text(role)
+td2.text(destination)
 tr.append(td2)
 
 var td3=$("<td>")
-td3.text(startDate)
+td3.text(firstTrain)
 tr.append(td3)
 
 var td4=$("<td>")
-td4.text(monthlyRate)
+td4.text(frequency)
 tr.append(td4)
 
-var td5=$("<td>")
-td5.text(months)
-tr.append(td5)
+// var td5=$("<td>")
+// td5.text(monthlyRate)
+// tr.append(td5)
 
-var td6=$("<td>")
-td6.text(totalBill)
-tr.append(td6)
-
-
-
-
-$("tbody").append();
+// var td6=$("<td>")
+// td6.text(totalBill)
+// tr.append(td6)
+     
+$("tbody").append(tr);
 
 })
