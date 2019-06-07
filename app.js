@@ -36,7 +36,11 @@ $("#submit").on("click", function () {
 database.ref().on("child_added", function (snapshot) {
 
   var train = snapshot.val().train;
+  console.log("TRAIN NAME: " + train);
+
   var destination = snapshot.val().destination;
+  console.log("DESTINATION: "+ destination);
+
   var firstTrain = snapshot.val().firstTrain;
   var frequency = snapshot.val().frequency;
 
@@ -79,17 +83,15 @@ database.ref().on("child_added", function (snapshot) {
   
   // Assumptions
   var tFrequency = frequency;
-  console.log("tFrequency:" + frequency);
+  console.log("FREQUENCY: " + frequency);
   
   // // Time is 3:30 AM
   var firstTime = firstTrain;
-  console.log("firstTrain:" + firstTrain);
-
-  //==
+  console.log("FIRST TRAIN: " + firstTrain);
 
   // First Time (pushed back 1 year to make sure it comes before current time)
   var firstTimeConverted = moment(firstTime, "HH:mm").subtract(1, "years");
-  console.log(firstTimeConverted);
+  // console.log("FIST TIME CONVERTED: " + firstTimeConverted);
 
   // Current Time
   var currentTime = moment();
@@ -101,15 +103,18 @@ database.ref().on("child_added", function (snapshot) {
 
   // Time apart (remainder)
   var tRemainder = diffTime % tFrequency;
-     console.log(tRemainder);
+  console.log("TIME APART: " + tRemainder);
 
   // Minute Until Train
   var tMinutesTillTrain = tFrequency - tRemainder;
   console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
-
+  
   // Next Train
   var nextTrain = moment().add(tMinutesTillTrain, "minutes");
   console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
+  var nextTrainRev = moment(nextTrain).format("hh:mm A");
+  console.log("ARRIVAL TIME (REV FORMAT): " + nextTrainRev);
+  console.log("===============================================");
 
   var tr = $("<tr>");
 
@@ -125,13 +130,13 @@ database.ref().on("child_added", function (snapshot) {
   td3.text(frequency)
   tr.append(td3)
 
-  // var td4=$("<td>")
-  // td4.text(nextTrain)
-  // tr.append(td4)
+  var td4=$("<td>")
+  td4.text(nextTrainRev)
+  tr.append(td4)
 
-  // var td5=$("<td>")
-  // td5.text(tMinutesTillTrainfirstTrain)
-  // tr.append(td5)
+  var td5=$("<td>")
+  td5.text(tMinutesTillTrain)
+  tr.append(td5)
 
   $("tbody").append(tr);
 
