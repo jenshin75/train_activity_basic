@@ -24,6 +24,7 @@
             background-color: #935004;
             color: beige;
         }
+
         .card-header {
             color: white;
         }
@@ -67,7 +68,7 @@
                     <div class="card-body">
                         <form action="">
                             <div class="form-group">
-                                <label for="train" >Train Name</label>
+                                <label for="train">Train Name</label>
                                 <input type="text" class="form-control" id="train">
                             </div>
                             <div class="form-group">
@@ -75,16 +76,12 @@
                                 <input type="text" class="form-control" id="destination">
                             </div>
                             <div class="form-group">
-                                <label for="frequency">Frequency (min)</label>
+                                <label for="nextArrival">First Train Time (HH:mm - military time)</label>
+                                <input type="text" class="form-control" id="firstTrain">
+                            </div>
+                            <div class="form-group">
+                                <label for="minutesAway">Frequency (min)</label>
                                 <input type="text" class="form-control" id="frequency">
-                            </div>
-                            <div class="form-group">
-                                <label for="nextArrival">Next Arrival</label>
-                                <input type="text" class="form-control" id="nextTrain">
-                            </div>
-                            <div class="form-group">
-                                <label for="minutesAway">Minutes Away</label>
-                                <input type="text" class="form-control" id="tMinutesTillTrain">
                             </div>
                             <div id="text-left">
                                 <button class="btn btn-primary" id="submit">Submit</button>
