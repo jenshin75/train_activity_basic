@@ -90,7 +90,7 @@ database.ref().on("child_added", function (snapshot) {
   console.log("FIRST TRAIN: " + firstTrain);
 
   // First Time (pushed back 1 year to make sure it comes before current time)
-  var firstTimeConverted = moment(firstTime, "HH:mm").subtract(1, "years");
+  var firstTimeConverted = moment(firstTime, "HH:mm");
 
   // Current Time
   var currentTime = moment();
@@ -116,6 +116,16 @@ database.ref().on("child_added", function (snapshot) {
   console.log("ARRIVAL TIME (REV FORMAT): " + nextTrainRev);
   console.log("===============================================");
 
+
+  console.log("difftime" +diffTime)
+if (diffTime < 0){
+  nextTrainRev = moment(firstTrain,"HH:mm").format("hh:mm a")
+  tMinutesTillTrain = moment().diff(moment(firstTrain,"HH:mm"), "minutes") *-1;
+
+} 
+
+
+  
   var tr = $("<tr>");
 
   var td1 = $("<td>")
