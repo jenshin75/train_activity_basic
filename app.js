@@ -12,6 +12,7 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
+// var database = firebase.database();
 var database = firebase.database();
 
 $("#submit").on("click", function () {
@@ -34,7 +35,6 @@ $("#submit").on("click", function () {
 
 //display data from initial load
 database.ref().on("child_added", function (snapshot) {
-
   var train = snapshot.val().train;
   console.log("TRAIN NAME: " + train);
 
@@ -43,43 +43,6 @@ database.ref().on("child_added", function (snapshot) {
 
   var firstTrain = snapshot.val().firstTrain;
   var frequency = snapshot.val().frequency;
-
-  //  var months=10;
-  //  var totalBill= months * monthlyRate;
-
-  // Assume the following situations.
-
-  // (TEST 1)
-  // First Train of the Day is 3:00 AM
-  // Assume Train comes every 3 minutes.
-  // Assume the current time is 3:16 AM....
-  // What time would the next train be...? (Use your brain first)
-  // It would be 3:18 -- 2 minutes away
-
-  // (TEST 2)
-  // First Train of the Day is 3:00 AM
-  // Assume Train comes every 7 minutes.
-  // Assume the current time is 3:16 AM....
-  // What time would the next train be...? (Use your brain first)
-  // It would be 3:21 -- 5 minutes away
-
-
-  // ==========================================================
-
-  // Solved Mathematically
-  // Test case 1:
-  // 16 - 00 = 16
-  // 16 % 3 = 1 (Modulus is the remainder)
-  // 3 - 1 = 2 minutes away
-  // 2 + 3:16 = 3:18
-
-  // Solved Mathematically
-  // Test case 2:
-  // 16 - 00 = 16
-  // 16 % 7 = 2 (Modulus is the remainder)
-  // 7 - 2 = 5 minutes away
-  // 5 + 3:16 = 3:21
-
 
   // Assumptions
   var tFrequency = frequency;
@@ -116,16 +79,12 @@ database.ref().on("child_added", function (snapshot) {
   console.log("ARRIVAL TIME (REV FORMAT): " + nextTrainRev);
   console.log("===============================================");
 
+  console.log("DIFF TIME: " + diffTime)
 
-  console.log("difftime" +diffTime)
-if (diffTime < 0){
-  nextTrainRev = moment(firstTrain,"HH:mm").format("hh:mm a")
-  tMinutesTillTrain = moment().diff(moment(firstTrain,"HH:mm"), "minutes") *-1;
-
-} 
-
-
-  
+  if (diffTime < 0) {
+    nextTrainRev = moment(firstTrain, "HH:mm").format("hh:mm a")
+    tMinutesTillTrain = moment().diff(moment(firstTrain, "HH:mm"), "minutes") * -1;
+  }
   var tr = $("<tr>");
 
   var td1 = $("<td>")
