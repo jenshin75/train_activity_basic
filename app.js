@@ -12,7 +12,6 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-// var database = firebase.database();
 var database = firebase.database();
 
 $("#submit").on("click", function () {
